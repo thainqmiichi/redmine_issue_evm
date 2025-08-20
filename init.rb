@@ -45,6 +45,18 @@ Redmine::Plugin.register :redmine_issue_evm do
   menu :project_menu, :issuevm, { controller: :evms, action: :index },
        caption: :tab_display_name, param: :project_id
 
+  # top menu (admin dashboard) - trên top menu
+  menu :top_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
+       caption: :label_evm_admin_dashboard, html: { class: 'icon icon-dashboard' }, if: Proc.new { User.current.admin? }
+
+  # application menu (admin dashboard) - sau News
+  menu :application_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
+       caption: :label_evm_admin_dashboard, html: { class: 'icon icon-dashboard' }, if: Proc.new { User.current.admin? }
+
+  # admin menu
+  menu :admin_menu, :evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
+       caption: :label_evm_admin_dashboard, html: { class: 'icon icon-dashboard' }
+
   # load holidays
   Holidays.load_all
 end

@@ -98,6 +98,11 @@
   label_baseline_due_date: Due Sate
   label_baseline_bac: BAC
   label_created_date: Created on
+
+  # admin dashboard
+  label_evm_admin_dashboard: EVM Admin Dashboard
+  text_evm_admin_dashboard_description: View EVM information for all projects in a single dashboard.
+  label_legend: Legend
   label_current_baseline: Latest
   label_old_baseline: old
   label_latest_baseline: View EVM

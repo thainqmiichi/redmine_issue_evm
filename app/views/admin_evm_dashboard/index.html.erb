@@ -1,0 +1,112 @@
+<% html_title l(:label_evm_admin_dashboard) %>
+
+
+
+<h2><%= l(:label_evm_admin_dashboard) %></h2>
+
+<div class="filters">
+  <%= form_tag admin_evm_dashboard_path, method: :get do %>
+    <fieldset>
+      <legend><%= l(:label_filter_plural) %></legend>
+      <label for="basis_date"><%= l(:label_basis_date) %>:</label>
+      <%= date_field_tag 'basis_date', @basis_date, size: 10 %>
+      <%= submit_tag l(:button_apply), class: 'button-small', name: nil %>
+    </fieldset>
+  <% end %>
+</div>
+
+<% if @projects_evm_data.any? %>
+  <div class="autoscroll">
+    <table id="evm-admin-dashboard-table" border="1" bordercolor="#bbb" class="list issues">
+      <thead>
+        <tr>
+          <th rowspan="2"><%= l(:label_project) %></th>
+          <th rowspan="2"><%= l(:indicator_table_header_date) %></th>
+          <th colspan="5"><%= l(:indicator_table_header_today) %></th>
+          <th colspan="2"><%= l(:indicator_table_header_difference) %></th>
+          <th colspan="3"><%= l(:indicator_table_header_performance) %></th>
+          <th colspan="4"><%= l(:indicator_table_header_forecast) %></th>
+        </tr>
+        <tr>
+          <th>BAC</th>
+          <th>Complete EV</th>
+          <th>PV</th>
+          <th>EV</th>
+          <th>AC</th>
+          <th>SV</th>
+          <th>CV</th>
+          <th>SPI</th>
+          <th>CPI</th>
+          <th>CR</th>
+          <th>EAC</th>
+          <th>ETC</th>
+          <th>VAC</th>
+          <th>TCPI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @projects_evm_data.each do |data| %>
+          <tr class="<%= cycle('odd', 'even') %>">
+            <td rowspan="2"><%= link_to data[:project].name, project_path(data[:project]) %></td>
+            <td rowspan="2"><%= format_date(data[:status_date]) %></td>
+            <td id="BAC_HOURS"><%= number_with_precision(data[:bac], precision: 1) %></td>
+            <td><%= number_with_precision(data[:complete_ev], precision: 1) %> %</td>
+            <td id="PV_HOURS"><%= number_with_precision(data[:pv], precision: 1) %></td>
+            <td id="EV_HOURS"><%= number_with_precision(data[:ev], precision: 1) %></td>
+            <td id="AC_HOURS"><%= number_with_precision(data[:ac], precision: 1) %></td>
+            <td id="SV_HOURS" class="<%= data[:sv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:sv], precision: 1) %></td>
+            <td id="CV_HOURS" class="<%= data[:cv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:cv], precision: 1) %></td>
+            <td class="<%= data[:spi] < 1.0 ? 'indicator-red' : (data[:spi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:spi], precision: 2) %></td>
+            <td class="<%= data[:cpi] < 1.0 ? 'indicator-red' : (data[:cpi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cpi], precision: 2) %></td>
+            <td class="<%= data[:cr] < 1.0 ? 'indicator-red' : (data[:cr] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cr], precision: 2) %></td>
+            <td><%= data[:finished_date].nil? ? (data[:eac] ? number_with_precision(data[:eac], precision: 1) : '-') : '-' %></td>
+            <td><%= data[:finished_date].nil? ? (data[:etc] ? number_with_precision(data[:etc], precision: 1) : '-') : '-' %></td>
+            <td><%= data[:finished_date].nil? ? (data[:vac] ? number_with_precision(data[:vac], precision: 1) : '-') : '-' %></td>
+            <td><%= data[:finished_date].nil? ? (data[:tcpi] ? number_with_precision(data[:tcpi], precision: 2) : '-') : '-' %></td>
+          </tr>
+          <tr class="<%= cycle('odd', 'even') %>">
+            <td><%= number_with_precision(data[:bac] / data[:working_hours], precision: 1) %></td>
+            <td><%= number_with_precision(data[:complete_ev] / data[:working_hours], precision: 1) %> %</td>
+            <td><%= number_with_precision(data[:pv] / data[:working_hours], precision: 1) %></td>
+            <td><%= number_with_precision(data[:ev] / data[:working_hours], precision: 1) %></td>
+            <td><%= number_with_precision(data[:ac] / data[:working_hours], precision: 1) %></td>
+            <td class="<%= data[:sv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:sv] / data[:working_hours], precision: 1) %></td>
+            <td class="<%= data[:cv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:cv] / data[:working_hours], precision: 1) %></td>
+            <td class="<%= data[:spi] < 1.0 ? 'indicator-red' : (data[:spi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:spi], precision: 2) %></td>
+            <td class="<%= data[:cpi] < 1.0 ? 'indicator-red' : (data[:cpi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cpi], precision: 2) %></td>
+            <td class="<%= data[:cr] < 1.0 ? 'indicator-red' : (data[:cr] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cr], precision: 2) %></td>
+            <td><%= data[:finished_date].nil? ? (data[:eac] ? number_with_precision(data[:eac] / data[:working_hours], precision: 1) : '-') : '-' %></td>
+            <td><%= data[:finished_date].nil? ? (data[:etc] ? number_with_precision(data[:etc] / data[:working_hours], precision: 1) : '-') : '-' %></td>
+            <td><%= data[:finished_date].nil? ? (data[:vac] ? number_with_precision(data[:vac] / data[:working_hours], precision: 1) : '-') : '-' %></td>
+            <td><%= data[:finished_date].nil? ? (data[:tcpi] ? number_with_precision(data[:tcpi], precision: 2) : '-') : '-' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p><%= l(:explanation_upper_row) %> <%= l(:explanation_lower_row) %></p>
+  </div>
+<% else %>
+  <p class="nodata"><%= l(:label_no_data) %></p>
+<% end %>
+
+<% content_for :sidebar do %>
+  <h3><%= l(:label_evm_admin_dashboard) %></h3>
+  <p><%= l(:text_evm_admin_dashboard_description) %></p>
+  
+  <h3><%= l(:label_legend) %></h3>
+  <ul>
+    <li><strong>BAC:</strong> Budget at Completion</li>
+    <li><strong>PV:</strong> Planned Value</li>
+    <li><strong>EV:</strong> Earned Value</li>
+    <li><strong>AC:</strong> Actual Cost</li>
+    <li><strong>SV:</strong> Schedule Variance</li>
+    <li><strong>CV:</strong> Cost Variance</li>
+    <li><strong>SPI:</strong> Schedule Performance Index</li>
+    <li><strong>CPI:</strong> Cost Performance Index</li>
+    <li><strong>CR:</strong> Cost Ratio</li>
+    <li><strong>EAC:</strong> Estimate at Completion</li>
+    <li><strong>ETC:</strong> Estimate to Complete</li>
+    <li><strong>VAC:</strong> Variance at Completion</li>
+    <li><strong>TCPI:</strong> To Complete Performance Index</li>
+  </ul>
+<% end %>
