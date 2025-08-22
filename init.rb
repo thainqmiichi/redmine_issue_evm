@@ -39,6 +39,8 @@ Redmine::Plugin.register :redmine_issue_evm do
                evmsettings: %i[ndex edit]
     permission :view_project_evmreports,
                evmreports: %i[index show new create edit destroy]
+    permission :view_evm_reports_summary,
+               evm_reports_summary: %i[index], global: true
   end
 
   # menu
@@ -47,15 +49,18 @@ Redmine::Plugin.register :redmine_issue_evm do
 
   # top menu (admin dashboard) - trên top menu
   menu :top_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
-       caption: :label_evm_admin_dashboard, html: { class: 'icon icon-dashboard' }, if: Proc.new { User.current.admin? }
+       caption: :label_evm_admin_dashboard, if: Proc.new { User.current.admin? }
 
   # application menu (admin dashboard) - sau News
   menu :application_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
-       caption: :label_evm_admin_dashboard, html: { class: 'icon icon-dashboard' }, if: Proc.new { User.current.admin? }
+       caption: :label_evm_admin_dashboard, if: Proc.new { User.current.admin? }
 
-  # admin menu
-  menu :admin_menu, :evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
-       caption: :label_evm_admin_dashboard, html: { class: 'icon icon-dashboard' }
+  # EVM Reports Summary menu
+  menu :top_menu, :evm_reports_summary, { controller: :evm_reports_summary, action: :index },
+       caption: :label_evm_reports_summary, if: Proc.new { User.current.admin? }
+
+  menu :application_menu, :evm_reports_summary, { controller: :evm_reports_summary, action: :index },
+       caption: :label_evm_reports_summary, if: Proc.new { User.current.admin? }
 
   # load holidays
   Holidays.load_all

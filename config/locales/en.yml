@@ -83,9 +83,9 @@
   label_report_show: Show Report
   label_report_list: Report list
   label_report_text: Report details
-  label_report_evm_previous: Previously reported EVM
-  label_report_evm_report: EVM on status date
-  label_report_evm_difference: Previously reported EVM differences
+  label_report_evm_previous: Previous Report EVM
+  label_report_evm_report: Current Report EVM
+  label_report_evm_difference: Changes Between Reports
 
   # baseline page
   label_baseline: Baseline Name
@@ -179,6 +179,7 @@
   permission_manage_evmsettings: Edit Common Setting
   permission_view_evmbaselines: View Baseline
   permission_view_project_evmreports: View Project report
+  permission_view_evm_reports_summary: View EVM Reports Summary
 
   # Tab Display
   tab_display_name: EVM
@@ -189,3 +190,44 @@
   # EVM of assignee
   no_assignee: no assigned
   estimated_working_hours: Estimated working hours
+
+  # EVM Reports Summary
+  label_evm_reports_summary: EVM Reports Summary
+  label_week: Week
+  label_project_status: Project Status
+  label_report_type: Report Type
+  label_status_date: Status Date
+  label_bac: BAC
+  label_pv: PV
+  label_ev: EV
+  label_ac: AC
+  label_sv: SV
+  label_cv: CV
+  label_note: Note
+  label_export_csv: Export CSV
+  label_showing_reports: "Showing %{count} reports"
+  label_for_week: "for week %{week}"
+  label_evm_on_status_date: EVM on status date
+  label_previously_reported_evm: Previously reported EVM
+  label_previously_reported_evm_differences: Previously reported EVM differences
+  label_project_status_open: Open
+  label_project_status_closed: Closed
+  label_project_status_archived: Archived
+  label_project_status_unknown: Unknown
+  button_apply: Apply
+  button_clear: Clear
+  label_more: More
+  label_no_data: No data
+  label_filter_plural: Filters
+  label_project: Project
+  label_all: All
+  label_archived: Archived
+  label_closed: Closed
+  label_open: Open
+  label_unknown: Unknown
+  project_status_active: Active
+  project_status_closed: Closed  
+  project_status_archived: Archived
+  field_status: Status
+  field_project: Project
+  label_view_full_report: View Full Report

@@ -183,3 +183,4 @@
   # EVM of assignee
   no_assignee: "sin asignación"
   estimated_working_hours: "Horas de trabajo estimadas"
+  label_view_full_report: "Ver Reporte Completo"

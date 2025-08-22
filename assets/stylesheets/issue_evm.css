@@ -90,6 +90,213 @@ td.difference-red {
   width: auto;
   border-collapse: collapse;
 }
+
+/*** EVM Reports Summary ***/
+.evm-reports-summary .evm-explanation {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  border-left: 4px solid #007bff;
+}
+
+.evm-reports-summary .evm-explanation p {
+  margin: 0 0 10px 0;
+  color: #495057;
+}
+
+.evm-reports-summary .evm-explanation ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.evm-reports-summary .evm-explanation li {
+  margin-bottom: 5px;
+  color: #6c757d;
+}
+
+.evm-reports-summary .filters {
+  margin-bottom: 20px;
+}
+
+.evm-reports-summary .filters fieldset.tabular p {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  vertical-align: top;
+}
+
+.evm-reports-summary .filters fieldset.tabular label {
+  font-weight: bold;
+  margin-right: 10px;
+  display: inline-block;
+  width: auto;
+}
+
+.evm-reports-summary .project-evm-section {
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.evm-reports-summary .project-evm-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+}
+
+.evm-reports-summary .evm-reports-table {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.evm-reports-summary .evm-reports-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  text-align: center;
+  padding: 6px;
+  border: 1px solid #ddd;
+}
+
+.evm-reports-summary .evm-reports-table td {
+  padding: 6px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.evm-reports-summary .evm-reports-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.evm-reports-summary .evm-reports-table th:nth-child(1) { width: 20%; } /* Report Type */
+.evm-reports-summary .evm-reports-table th:nth-child(2) { width: 12%; } /* Status Date */
+.evm-reports-summary .evm-reports-table th:nth-child(3) { width: 11%; }  /* BAC */
+.evm-reports-summary .evm-reports-table th:nth-child(4) { width: 11%; }  /* PV */
+.evm-reports-summary .evm-reports-table th:nth-child(5) { width: 11%; }  /* EV */
+.evm-reports-summary .evm-reports-table th:nth-child(6) { width: 11%; }  /* AC */
+.evm-reports-summary .evm-reports-table th:nth-child(7) { width: 7%; }  /* SV */
+.evm-reports-summary .evm-reports-table th:nth-child(8) { width: 7%; }  /* CV */
+
+
+
+.evm-reports-summary .report-type {
+  text-align: right !important;
+  font-weight: bold;
+  background-color: #f8f9fa;
+  width: 200px;
+}
+
+/* Note section styling */
+.evm-reports-summary .report-note-section {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  border-left: 4px solid #28a745;
+}
+
+.evm-reports-summary .report-note-section h4 {
+  margin: 0 0 10px 0;
+  color: #28a745;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.evm-reports-summary .report-note-section .note-content {
+  color: #495057;
+  line-height: 1.5;
+}
+
+.evm-reports-summary .report-note-section .note-content p {
+  margin: 0 0 10px 0;
+}
+
+.evm-reports-summary .report-note-section .note-content p:last-child {
+  margin-bottom: 0;
+}
+
+.evm-reports-summary .report-note-section .note-content pre {
+  word-wrap: break-word;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 3px;
+  font-family: inherit;
+  margin: 0;
+}
+
+.evm-reports-summary .report-note-section .note-actions {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #dee2e6;
+}
+
+.evm-reports-summary .report-note-section .icon-report {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.evm-reports-summary .report-note-section .icon-report:hover {
+  text-decoration: underline;
+}
+
+.evm-reports-summary .evm-value {
+  text-align: right;
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.evm-reports-summary .evm-value.positive {
+  color: #28a745;
+}
+
+.evm-reports-summary .evm-value.negative {
+  color: #dc3545;
+}
+
+.evm-reports-summary .evm-value.neutral {
+  color: #6c757d;
+}
+
+.evm-reports-summary .note-section {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+
+.evm-reports-summary .note-content {
+  margin-top: 5px;
+  word-wrap: break-word;
+  line-height: 1.4;
+  /* white-space: pre-wrap; */
+}
+
+.evm-reports-summary .summary {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  font-style: italic;
+}
+
+.evm-reports-summary .icon-more {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.evm-reports-summary .icon-more:hover {
+  text-decoration: underline;
+}
 #evm-indicator-value-table th {
   background-color: #eee;
 }
@@ -111,6 +318,138 @@ td.indicator-red {
 }
 td.indicator-orange {
   background-color: #ff8c00;
+}
+
+/* Week Selector Styles */
+.week-selector-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.week-selector-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.flatpickr-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-container {
+  display: block;
+}
+
+.week-dropdown {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  min-width: 250px;
+  font-size: 14px;
+  color: #495057;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.week-dropdown:hover {
+  border-color: #007bff;
+}
+
+.week-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,.25);
+}
+
+.week-dropdown option {
+  padding: 4px 8px;
+  color: #495057;
+}
+
+#week-picker {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  min-width: 200px;
+  font-size: 14px;
+  color: #495057;
+}
+
+#week-picker:hover {
+  border-color: #007bff;
+}
+
+#week-picker:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,.25);
+}
+
+/* Custom Air Datepicker styles for week selection */
+.air-datepicker-cell.-day- {
+  cursor: pointer;
+}
+
+.air-datepicker-cell.-day-:hover {
+  background: #e9ecef !important;
+  border-color: #007bff !important;
+}
+
+.air-datepicker-cell.-selected- {
+  background: #007bff !important;
+  color: white !important;
+}
+
+/* Week hover effect */
+.air-datepicker-cell.-day-.week-hover {
+  background: #cfe2ff !important;
+  border-color: #007bff !important;
+}
+
+.air-datepicker {
+  z-index: 1000 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+/* Override flatpickr default styles */
+.flatpickr-calendar {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+  border: 1px solid #ccc !important;
+}
+
+.flatpickr-calendar.open {
+  z-index: 1000 !important;
+}
+
+.flatpickr-months .flatpickr-month {
+  background: #f8f9fa !important;
+  color: #495057 !important;
+}
+
+.flatpickr-weekdays {
+  background: #f8f9fa !important;
+}
+
+.flatpickr-weekday {
+  color: #6c757d !important;
+  font-weight: bold !important;
+}
+
+/* Week number display (if enabled) */
+.flatpickr-weekwrapper .flatpickr-weeks {
+  background: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+}
+
+.flatpickr-weekwrapper .flatpickr-weekday {
+  background: #f8f9fa;
+  color: #6c757d;
 }
 
 /*** sidebar ***/

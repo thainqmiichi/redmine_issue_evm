@@ -21,7 +21,6 @@
       <thead>
         <tr>
           <th rowspan="2"><%= l(:label_project) %></th>
-          <th rowspan="2"><%= l(:indicator_table_header_date) %></th>
           <th colspan="5"><%= l(:indicator_table_header_today) %></th>
           <th colspan="2"><%= l(:indicator_table_header_difference) %></th>
           <th colspan="3"><%= l(:indicator_table_header_performance) %></th>
@@ -47,8 +46,7 @@
       <tbody>
         <% @projects_evm_data.each do |data| %>
           <tr class="<%= cycle('odd', 'even') %>">
-            <td rowspan="2"><%= link_to data[:project].name, project_path(data[:project]) %></td>
-            <td rowspan="2"><%= format_date(data[:status_date]) %></td>
+            <td rowspan="2"><%= link_to data[:project].name, project_evms_path(data[:project]) %></td>
             <td id="BAC_HOURS"><%= number_with_precision(data[:bac], precision: 1) %></td>
             <td><%= number_with_precision(data[:complete_ev], precision: 1) %> %</td>
             <td id="PV_HOURS"><%= number_with_precision(data[:pv], precision: 1) %></td>
