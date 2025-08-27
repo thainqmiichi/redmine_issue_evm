@@ -10,4 +10,10 @@ Rails.application.routes.draw do
   
   # EVM Reports Summary routes
   get 'evm_reports_summary', to: 'evm_reports_summary#index', as: :evm_reports_summary
+  
+  # EVM Settings routes
+  get 'admin/evm_settings', to: 'evm_settings#index', as: :evm_settings
+  patch 'admin/evm_settings/update_permissions', to: 'evm_settings#update_permissions', as: :update_permissions_evm_settings
+  post 'admin/evm_settings/create_permission', to: 'evm_settings#create_permission', as: :create_permission_evm_settings
+  delete 'admin/evm_settings/:id/delete_permission', to: 'evm_settings#delete_permission', as: :delete_permission_evm_settings
 end

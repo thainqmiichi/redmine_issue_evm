@@ -6,13 +6,18 @@ class EvmReportsSummaryController < ApplicationController
   helper EvmreportsHelper
   
   # Before action
-  before_action :require_admin
+  before_action :require_evm_reports_access
   before_action :set_filters
   
   # View of EVM reports summary page
   def index
-    # Get projects by status filter
-    scope = Project.visible.order(:name)
+    # Admin có thể xem tất cả project, user thường chỉ xem project họ có quyền
+    if User.current.admin?
+      scope = Project.order(:name)
+    else
+      scope = Project.visible.order(:name)
+    end
+    
     scope = scope.where(status: @project_status) if @project_status.present?
     
     @projects = scope
@@ -82,7 +87,19 @@ class EvmReportsSummaryController < ApplicationController
   
   private
   
-
+  def require_evm_reports_access
+    unless User.current.admin? || can_access_evm_reports_summary?
+      render_403
+      return false
+    end
+  end
+  
+  def can_access_evm_reports_summary?
+    return true if User.current.admin?
+    
+    user_roles = User.current.roles_for_project(Project.new)
+    user_roles.any? { |role| EvmRolePermission.can_access_reports_summary?(role.id) }
+  end
   
   def set_filters
     # Filter for week

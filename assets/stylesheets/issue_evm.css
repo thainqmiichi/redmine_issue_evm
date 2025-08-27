@@ -544,3 +544,160 @@ dt.evmreports-edit {
 .tab-switch {
   display: none;
 }
+
+/* EVM Settings Styles */
+.evm-settings {
+  margin: 20px 0;
+}
+
+.evm-settings .tabs {
+  margin-bottom: 20px;
+}
+
+.evm-settings .tabs ul {
+  border-bottom: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.evm-settings .tabs li {
+  display: inline-block;
+  margin: 0;
+}
+
+.evm-settings .tabs a {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-bottom: none;
+  margin-bottom: -1px;
+  color: #666;
+}
+
+.evm-settings .tabs a:hover {
+  background-color: #f5f5f5;
+}
+
+.evm-settings .tabs a.selected {
+  background-color: white;
+  border-color: #ccc;
+  color: #333;
+}
+
+.evm-settings .tab-content {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: white;
+}
+
+.evm-settings .permissions {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.evm-settings .permissions th,
+.evm-settings .permissions td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.evm-settings .permissions th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.evm-settings .role-name {
+  min-width: 200px;
+}
+
+.evm-settings .permission-checkbox {
+  text-align: center;
+}
+
+.evm-settings .permission-checkbox input[type="checkbox"] {
+  margin: 0;
+}
+
+.evm-settings .permission-summary {
+  font-size: 0.9em;
+  color: #666;
+  max-width: 200px;
+}
+
+.evm-settings .actions {
+  text-align: center;
+  width: 80px;
+}
+
+.evm-settings .status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.evm-settings .status.configured {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.evm-settings .status.not-configured {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.evm-settings .form-actions {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.evm-settings .field {
+  margin-bottom: 15px;
+}
+
+.evm-settings .field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.evm-settings .field select {
+  width: 100%;
+  max-width: 300px;
+  padding: 5px;
+}
+
+.evm-settings .nodata {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 40px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .evm-settings .permissions {
+    font-size: 0.9em;
+  }
+  
+  .evm-settings .permissions th,
+  .evm-settings .permissions td {
+    padding: 4px;
+  }
+  
+  .evm-settings .role-name {
+    min-width: 150px;
+  }
+  
+  .evm-settings .permission-summary {
+    max-width: 150px;
+  }
+}

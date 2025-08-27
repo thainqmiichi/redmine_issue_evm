@@ -1,0 +1,105 @@
+<% content_for :header_tags do %>
+  <%= stylesheet_link_tag 'issue_evm', plugin: 'redmine_issue_evm' %>
+<% end %>
+
+<div class="contextual">
+  <%= link_to l(:label_back_to_administration), admin_path, class: 'icon icon-back' %>
+</div>
+
+<h2><%= l(:label_evm_settings) %></h2>
+
+<!-- Current Configuration -->
+<div style="margin: 20px 0;">
+  <h3>Current EVM Permissions</h3>
+  
+  <% if @evm_permissions.any? %>
+    <table class="list">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Admin Dashboard</th>
+          <th>Reports Summary</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @evm_permissions.each do |permission| %>
+          <tr>
+            <td><strong><%= permission.role.name %></strong></td>
+            <td><%= permission.can_access_admin_dashboard ? '✅ Yes' : '❌ No' %></td>
+            <td><%= permission.can_access_reports_summary ? '✅ Yes' : '❌ No' %></td>
+            <td>
+              <%= link_to 'Remove', 
+                  delete_permission_evm_settings_path(permission), 
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'button' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p style="color: #666; font-style: italic;">No roles have EVM permissions configured yet.</p>
+  <% end %>
+</div>
+
+<!-- Add New Role -->
+<div style="margin: 20px 0;">
+  <h3>Add EVM Permissions to Role</h3>
+  
+  <% if @roles_without_permissions.any? %>
+    <p>Select a role to grant EVM permissions (Admin Dashboard + Reports Summary):</p>
+    
+    <table class="list">
+      <thead>
+        <tr>
+          <th>Role Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @roles_without_permissions.each do |role| %>
+          <tr>
+            <td><%= role.name %></td>
+            <td>
+              <%= form_tag create_permission_evm_settings_path, method: :post, style: 'display: inline;' do %>
+                <%= hidden_field_tag :role_id, role.id %>
+                <%= submit_tag 'Grant EVM Access', class: 'button-positive' %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p style="color: #666; font-style: italic;">All roles already have EVM permissions configured.</p>
+  <% end %>
+</div>
+
+<!-- Update Permissions -->
+<% if @evm_permissions.any? %>
+  <div style="margin: 20px 0;">
+    <h3>Update Permissions</h3>
+    <%= form_tag update_permissions_evm_settings_path, method: :patch do %>
+      <% @evm_permissions.each do |permission| %>
+        <div style="border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; background: #f9f9f9;">
+          <h4><%= permission.role.name %></h4>
+          <div style="margin: 10px 0;">
+            <label style="display: block; margin: 5px 0;">
+              <%= check_box_tag "permissions[#{permission.role_id}][can_access_admin_dashboard]", '1', permission.can_access_admin_dashboard %>
+              <strong>Admin Dashboard Access</strong> - Can access EVM Admin Dashboard
+            </label>
+            <label style="display: block; margin: 5px 0;">
+              <%= check_box_tag "permissions[#{permission.role_id}][can_access_reports_summary]", '1', permission.can_access_reports_summary %>
+              <strong>Reports Summary Access</strong> - Can access EVM Reports Summary
+            </label>
+          </div>
+        </div>
+      <% end %>
+      <div style="margin-top: 15px;">
+        <%= submit_tag 'Save Changes', class: 'button-positive' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
