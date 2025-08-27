@@ -10,12 +10,18 @@ class AdminEvmDashboardController < ApplicationController
   include IssueDataFetcher
   
   # Before action
-  before_action :require_admin
+  before_action :require_evm_admin_access
   before_action :set_basis_date
   
   # View of admin dashboard page
   def index
-    @projects = Project.visible.active.order(:name)
+    # Admin có thể xem tất cả project, user thường chỉ xem project họ có quyền
+    if User.current.admin?
+      @projects = Project.active.order(:name)
+    else
+      @projects = Project.visible.active.order(:name)
+    end
+    
     @projects_evm_data = []
     
     @projects.each do |project|
@@ -35,11 +41,18 @@ class AdminEvmDashboardController < ApplicationController
   
   private
   
-  def require_admin
-    unless User.current.admin?
+  def require_evm_admin_access
+    unless User.current.admin? || can_access_evm_admin_dashboard?
       render_403
       return false
     end
+  end
+  
+  def can_access_evm_admin_dashboard?
+    return true if User.current.admin?
+    
+    user_roles = User.current.roles_for_project(Project.new)
+    user_roles.any? { |role| EvmRolePermission.can_access_admin_dashboard?(role.id) }
   end
   
   def set_basis_date

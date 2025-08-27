@@ -21,6 +21,21 @@ else
   end
 end
 
+# Helper method để kiểm tra quyền EVM
+def can_access_evm_admin_dashboard?
+  return true if User.current.admin?
+  
+  user_roles = User.current.roles_for_project(Project.new)
+  user_roles.any? { |role| EvmRolePermission.can_access_admin_dashboard?(role.id) }
+end
+
+def can_access_evm_reports_summary?
+  return true if User.current.admin?
+  
+  user_roles = User.current.roles_for_project(Project.new)
+  user_roles.any? { |role| EvmRolePermission.can_access_reports_summary?(role.id) }
+end
+
 # module define
 Redmine::Plugin.register :redmine_issue_evm do
   name "Redmine Issue Evm plugin"
@@ -49,18 +64,22 @@ Redmine::Plugin.register :redmine_issue_evm do
 
   # top menu (admin dashboard) - trên top menu
   menu :top_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
-       caption: :label_evm_admin_dashboard, if: Proc.new { User.current.admin? }
+       caption: :label_evm_admin_dashboard, if: Proc.new { can_access_evm_admin_dashboard? }
 
   # application menu (admin dashboard) - sau News
   menu :application_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
-       caption: :label_evm_admin_dashboard, if: Proc.new { User.current.admin? }
+       caption: :label_evm_admin_dashboard, if: Proc.new { can_access_evm_admin_dashboard? }
 
   # EVM Reports Summary menu
   menu :top_menu, :evm_reports_summary, { controller: :evm_reports_summary, action: :index },
-       caption: :label_evm_reports_summary, if: Proc.new { User.current.admin? }
+       caption: :label_evm_reports_summary, if: Proc.new { can_access_evm_reports_summary? }
 
   menu :application_menu, :evm_reports_summary, { controller: :evm_reports_summary, action: :index },
-       caption: :label_evm_reports_summary, if: Proc.new { User.current.admin? }
+       caption: :label_evm_reports_summary, if: Proc.new { can_access_evm_reports_summary? }
+
+  # EVM Settings menu (chỉ admin)
+  menu :admin_menu, :evm_settings, { controller: :evm_settings, action: :index },
+       caption: :label_evm_settings, html: { class: 'icon icon-settings' }, if: Proc.new { User.current.admin? }
 
   # load holidays
   Holidays.load_all

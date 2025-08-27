@@ -231,3 +231,33 @@
   field_status: Status
   field_project: Project
   label_view_full_report: View Full Report
+
+  # EVM Settings
+  label_evm_settings: EVM Settings
+  label_role_permissions: Role Permissions
+  label_add_role: Add Role
+  label_admin_dashboard: Admin Dashboard
+  label_reports_summary: Reports Summary
+  label_permissions_summary: Permissions Summary
+  label_actions: Actions
+  label_role: Role
+  label_add_role_permission: Add Role Permission
+  label_select_role: Select Role
+  label_configured: Configured
+  label_not_configured: Not Configured
+  label_no_permissions: No Permissions
+  label_no_role_permissions_configured: No role permissions have been configured yet.
+  label_all_roles_configured: All roles have been configured.
+  label_back_to_administration: Back to Administration
+  notice_successful_update: Settings were successfully updated.
+  notice_permission_created: Role permission was successfully created.
+  notice_permission_deleted: Role permission for "%{role}" was successfully deleted.
+  error_no_permissions_selected: No permissions were selected.
+  error_role_not_selected: Please select a role.
+  error_permission_not_found: Permission not found.
+  
+  # Buttons
+  button_save: Save
+  button_add: Add
+  button_delete: Delete
+  text_are_you_sure: Are you sure?
