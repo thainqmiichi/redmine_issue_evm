@@ -1,0 +1,63 @@
+{
+  "copilot": {
+    "enable": true,
+    "language": "ruby",
+    "framework": "rails",
+    "project": "redmine_issue_evm",
+    "review": {
+      "enabled": true,
+      "autoReview": true,
+      "suggestions": true,
+      "security": true,
+      "performance": true,
+      "bestPractices": true
+    },
+    "chat": {
+      "enabled": true,
+      "context": "project",
+      "history": true
+    },
+    "code": {
+      "suggestions": true,
+      "completions": true,
+      "inline": true
+    },
+    "rules": {
+      "ruby": {
+        "style": "rubocop",
+        "version": "2.7+",
+        "conventions": "rails"
+      },
+      "rails": {
+        "version": "5.2+",
+        "conventions": "standard"
+      },
+      "redmine": {
+        "plugin": true,
+        "hooks": true,
+        "permissions": true
+      },
+      "testing": {
+        "framework": "minitest",
+        "coverage": true
+      }
+    },
+    "ignore": [
+      "vendor/**",
+      "node_modules/**",
+      "tmp/**",
+      "log/**",
+      "*.log",
+      "db/migrate/*",
+      "assets/images/**"
+    ],
+    "paths": {
+      "controllers": "app/controllers/**/*.rb",
+      "models": "app/models/**/*.rb",
+      "helpers": "app/helpers/**/*.rb",
+      "views": "app/views/**/*.erb",
+      "tests": "test/**/*.rb",
+      "migrations": "db/migrate/*.rb"
+    }
+  }
+}
