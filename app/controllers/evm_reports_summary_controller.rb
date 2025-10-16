@@ -38,6 +38,17 @@ class EvmReportsSummaryController < ApplicationController
             sv: previous_report&.evm_sv || 0,
             cv: previous_report&.evm_cv || 0
           }
+
+          previous_data[:spi] = if previous_data[:pv].to_f.zero?
+                                  nil
+                                else
+                                  (previous_data[:ev].to_f / previous_data[:pv].to_f).round(2)
+                                end
+          previous_data[:cpi] = if previous_data[:ac].to_f.zero?
+                                  nil
+                                else
+                                  (previous_data[:ev].to_f / previous_data[:ac].to_f).round(2)
+                                end
           
           # Check if all previous values are zero (except BAC which can be zero but still valid)
           all_previous_zero = previous_report.nil? || 
@@ -47,6 +58,27 @@ class EvmReportsSummaryController < ApplicationController
                               previous_data[:sv] == 0 && 
                               previous_data[:cv] == 0)
           
+          current_data = {
+            bac: latest_report.evm_bac,
+            pv: latest_report.evm_pv,
+            ev: latest_report.evm_ev,
+            ac: latest_report.evm_ac,
+            sv: latest_report.evm_sv,
+            cv: latest_report.evm_cv
+          }
+
+          current_data[:spi] = if current_data[:pv].to_f.zero?
+            nil
+          else
+            (current_data[:ev].to_f / current_data[:pv].to_f).round(2)
+          end
+
+          current_data[:cpi] = if current_data[:ac].to_f.zero?
+            nil
+          else
+            (current_data[:ev].to_f / current_data[:ac].to_f).round(2)
+          end
+          
           @reports_data << {
             project: project,
             current_report: latest_report,
@@ -54,14 +86,7 @@ class EvmReportsSummaryController < ApplicationController
             evm_setting: evm_setting,
             status_date: latest_report.status_date,
             previous_status_date: previous_report&.status_date,
-            current_data: {
-              bac: latest_report.evm_bac,
-              pv: latest_report.evm_pv,
-              ev: latest_report.evm_ev,
-              ac: latest_report.evm_ac,
-              sv: latest_report.evm_sv,
-              cv: latest_report.evm_cv
-            },
+            current_data: current_data,
             previous_data: previous_data,
             all_previous_zero: all_previous_zero,
             differences: calculate_differences(latest_report, previous_report, evm_setting),
@@ -124,6 +149,12 @@ class EvmReportsSummaryController < ApplicationController
   def calculate_differences(current_report, previous_report, evm_setting)
     return {} unless previous_report && evm_setting
     
+    current_spi = current_report.evm_pv.to_f.zero? ? nil : (current_report.evm_ev.to_f / current_report.evm_pv.to_f).round(2)
+    previous_spi = previous_report.evm_pv.to_f.zero? ? nil : (previous_report.evm_ev.to_f / previous_report.evm_pv.to_f).round(2)
+
+    current_cpi = current_report.evm_ac.to_f.zero? ? nil : (current_report.evm_ev.to_f / current_report.evm_ac.to_f).round(2)
+    previous_cpi = previous_report.evm_ac.to_f.zero? ? nil : (previous_report.evm_ev.to_f / previous_report.evm_ac.to_f).round(2)
+    
     {
       status_date: evm_report_status_date_difference(current_report.status_date,
                                                     previous_report.status_date,
@@ -134,7 +165,9 @@ class EvmReportsSummaryController < ApplicationController
       ev: evm_report_difference(current_report.evm_ev, previous_report.evm_ev),
       ac: evm_report_difference(current_report.evm_ac, previous_report.evm_ac),
       sv: evm_report_difference(current_report.evm_sv, previous_report.evm_sv),
-      cv: evm_report_difference(current_report.evm_cv, previous_report.evm_cv)
+      cv: evm_report_difference(current_report.evm_cv, previous_report.evm_cv),
+      spi: evm_report_difference(current_spi, previous_spi),
+      cpi: evm_report_difference(current_cpi, previous_cpi)
     }
   rescue => e
     Rails.logger.error "Error calculating differences: #{e.message}"
@@ -172,6 +205,8 @@ class EvmReportsSummaryController < ApplicationController
         'AC',
         'SV',
         'CV',
+        'SPI',
+        'CPI',
         'Note'
       ]
       
@@ -187,6 +222,8 @@ class EvmReportsSummaryController < ApplicationController
           data[:all_previous_zero] ? '-' : data[:previous_data][:ac],
           data[:all_previous_zero] ? '-' : data[:previous_data][:sv],
           data[:all_previous_zero] ? '-' : data[:previous_data][:cv],
+          data[:all_previous_zero] ? '-' : data[:previous_data][:spi],
+          data[:all_previous_zero] ? '-' : data[:previous_data][:cpi],
           ''
         ]
         
@@ -201,6 +238,8 @@ class EvmReportsSummaryController < ApplicationController
           data[:current_data][:ac],
           data[:current_data][:sv],
           data[:current_data][:cv],
+          data[:current_data][:spi],
+          data[:current_data][:cpi],
           data[:note]
         ]
         
@@ -215,11 +254,13 @@ class EvmReportsSummaryController < ApplicationController
           data[:differences][:ac],
           data[:differences][:sv],
           data[:differences][:cv],
+          data[:differences][:spi],
+          data[:differences][:cpi],
           ''
         ]
         
         # Empty row for separation
-        csv << ['', '', '', '', '', '', '', '', '', '']
+        csv << ['', '', '', '', '', '', '', '', '', '', '', '']
       end
     end
   end
