@@ -20,7 +20,12 @@ class AdminEvmDashboardController < ApplicationController
   
   # View of admin dashboard page
   def index
-    @projects = Project.visible.active.order(:name)
+    # Admin sees all projects by original logic; non-admins are filtered by roles.can_view_evm
+    if User.current.admin?
+      @projects = Project.visible.active.order(:name)
+    else
+      @projects = evm_viewable_projects(Project.visible.active)
+    end
     @projects_evm_data = []
     
     @projects.each do |project|

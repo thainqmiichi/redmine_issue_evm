@@ -27,6 +27,7 @@ module EvmreportsHelper
   # @param [Numeric] prev_report_value previusly reported value
   # @return [Numeric] Difference
   def evm_report_difference(report_value, prev_report_value)
-    prev_report_value.nil? ? "" : (report_value - prev_report_value).to_f.round(1)
+    return nil if prev_report_value.nil?
+    (report_value.to_f - prev_report_value.to_f).round(2)
   end
 end

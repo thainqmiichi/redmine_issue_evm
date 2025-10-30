@@ -33,4 +33,14 @@ class ProjectEvmreport < ActiveRecord::Base
 
   scope :visible,
         ->(*args) { joins(:project).where(Project.allowed_to_condition(args.shift || User.current, :view_project_evmreports, *args)) }
+
+  def evm_spi
+    return nil if evm_ev.blank? || evm_pv.blank? || evm_pv.to_f.zero?
+    (evm_ev.to_f / evm_pv.to_f).round(2)
+  end
+
+  def evm_cpi
+    return nil if evm_ev.blank? || evm_ac.blank? || evm_ac.to_f.zero?
+    (evm_ev.to_f / evm_ac.to_f).round(2)
+  end
 end
