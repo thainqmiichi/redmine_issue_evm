@@ -26,7 +26,17 @@ module EvmReportsSummaryHelper
       'neutral'
     end
   end
-  
+
+  def evm_bg_class(value)
+    return nil if value.nil?
+    v = value.to_f
+    if v < 0.8 || v > 1.2
+      'bg-color-red'
+    elsif (v >= 0.8 && v < 0.9) || (v > 1.1 && v <= 1.2)
+      'bg-color-orange'
+    end
+  end
+
   # Get project status label
   def project_status_label(status)
     case status
