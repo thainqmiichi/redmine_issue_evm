@@ -13,19 +13,6 @@ module EvmReportsSummaryHelper
     return '-' if value.nil? || all_previous_values_zero
     number_with_precision(value, precision: 2)
   end
-  
-  # Get CSS class for EVM value
-  def evm_value_class(value)
-    return 'neutral' if value.nil?
-    
-    if value > 0
-      'positive'
-    elsif value < 0
-      'negative'
-    else
-      'neutral'
-    end
-  end
 
   def evm_bg_class(value)
     return nil if value.nil?

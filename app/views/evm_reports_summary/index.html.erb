@@ -75,10 +75,10 @@
               <td class="evm-value"><%= format_previous_evm_value(data[:previous_data][:pv], data[:all_previous_zero]) %></td>
               <td class="evm-value"><%= format_previous_evm_value(data[:previous_data][:ev], data[:all_previous_zero]) %></td>
               <td class="evm-value"><%= format_previous_evm_value(data[:previous_data][:ac], data[:all_previous_zero]) %></td>
-              <td class="evm-value <%= data[:all_previous_zero] ? 'neutral' : evm_value_class(data[:previous_data][:sv]) %>">
+              <td class="evm-value">
                 <%= format_previous_evm_value(data[:previous_data][:sv], data[:all_previous_zero]) %>
               </td>
-              <td class="evm-value <%= data[:all_previous_zero] ? 'neutral' : evm_value_class(data[:previous_data][:cv]) %>">
+              <td class="evm-value">
                 <%= format_previous_evm_value(data[:previous_data][:cv], data[:all_previous_zero]) %>
               </td>
               <td class="evm-value <%= evm_bg_class(data[:previous_data][:spi]) %>">
@@ -97,10 +97,10 @@
               <td class="evm-value"><%= format_evm_value(data[:current_data][:pv]) %></td>
               <td class="evm-value"><%= format_evm_value(data[:current_data][:ev]) %></td>
               <td class="evm-value"><%= format_evm_value(data[:current_data][:ac]) %></td>
-              <td class="evm-value <%= evm_value_class(data[:current_data][:sv]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:current_data][:sv]) %>
               </td>
-              <td class="evm-value <%= evm_value_class(data[:current_data][:cv]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:current_data][:cv]) %>
               </td>
               <td class="evm-value <%= evm_bg_class(data[:current_data][:spi]) %>">
@@ -115,22 +115,22 @@
             <tr class="<%= cycle('odd', 'even') %>">
               <td class="report-type"><%= l(:label_report_evm_difference) %></td>
               <td><%= format_evm_value(data[:differences][:status_date]) %></td>
-              <td class="evm-value <%= evm_value_class(data[:differences][:bac]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:differences][:bac]) %>
               </td>
-              <td class="evm-value <%= evm_value_class(data[:differences][:pv]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:differences][:pv]) %>
               </td>
-              <td class="evm-value <%= evm_value_class(data[:differences][:ev]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:differences][:ev]) %>
               </td>
-              <td class="evm-value <%= evm_value_class(data[:differences][:ac]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:differences][:ac]) %>
               </td>
-              <td class="evm-value <%= evm_value_class(data[:differences][:sv]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:differences][:sv]) %>
               </td>
-              <td class="evm-value <%= evm_value_class(data[:differences][:cv]) %>">
+              <td class="evm-value">
                 <%= format_evm_value(data[:differences][:cv]) %>
               </td>
               <td class="evm-value">
