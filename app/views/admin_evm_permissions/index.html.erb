@@ -1,0 +1,22 @@
+<h2>EVM Permissions</h2>
+<%= form_with url: admin_evm_permissions_path, method: :put do %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th><%= l(:label_role) %></th>
+        <th>Can view EVM?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @roles.each do |role| %>
+        <tr>
+          <td><%= role.name %></td>
+          <td>
+            <%= check_box_tag 'role_ids[]', role.id, role.can_view_evm %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p><%= submit_tag l(:button_save) %></p>
+<% end %>
