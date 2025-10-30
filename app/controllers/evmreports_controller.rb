@@ -1,6 +1,7 @@
 # Evm Reports controller.
 #
 class EvmreportsController < BaseevmController
+  helper EvmReportsSummaryHelper
   # menu
   menu_item :issuevm
   # index for evm report

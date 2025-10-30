@@ -8,6 +8,7 @@
 # 5. export to CSV
 #
 class EvmsController < BaseevmController
+  helper EvmReportsSummaryHelper
   include EvmUtil
   # menu
   menu_item :issuevm
