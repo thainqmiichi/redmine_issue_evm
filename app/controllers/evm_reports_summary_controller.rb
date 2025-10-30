@@ -147,19 +147,25 @@ class EvmReportsSummaryController < ApplicationController
   end
   
   def calculate_differences(current_report, previous_report, evm_setting)
-    return {} unless previous_report && evm_setting
-    
+    return {} unless previous_report
+
     current_spi = current_report.evm_pv.to_f.zero? ? nil : (current_report.evm_ev.to_f / current_report.evm_pv.to_f).round(2)
     previous_spi = previous_report.evm_pv.to_f.zero? ? nil : (previous_report.evm_ev.to_f / previous_report.evm_pv.to_f).round(2)
 
     current_cpi = current_report.evm_ac.to_f.zero? ? nil : (current_report.evm_ev.to_f / current_report.evm_ac.to_f).round(2)
     previous_cpi = previous_report.evm_ac.to_f.zero? ? nil : (previous_report.evm_ev.to_f / previous_report.evm_ac.to_f).round(2)
-    
+
+    status_date_diff = if evm_setting
+      evm_report_status_date_difference(current_report.status_date,
+                                        previous_report.status_date,
+                                        evm_setting.exclude_holidays,
+                                        evm_setting.region)
+    else
+      nil
+    end
+
     {
-      status_date: evm_report_status_date_difference(current_report.status_date,
-                                                    previous_report.status_date,
-                                                    evm_setting.exclude_holidays,
-                                                    evm_setting.region),
+      status_date: status_date_diff,
       bac: evm_report_difference(current_report.evm_bac, previous_report.evm_bac),
       pv: evm_report_difference(current_report.evm_pv, previous_report.evm_pv),
       ev: evm_report_difference(current_report.evm_ev, previous_report.evm_ev),

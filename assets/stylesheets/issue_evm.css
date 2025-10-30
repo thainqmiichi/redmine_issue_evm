@@ -176,12 +176,14 @@ td.difference-red {
 
 .evm-reports-summary .evm-reports-table th:nth-child(1) { width: 20%; } /* Report Type */
 .evm-reports-summary .evm-reports-table th:nth-child(2) { width: 12%; } /* Status Date */
-.evm-reports-summary .evm-reports-table th:nth-child(3) { width: 11%; }  /* BAC */
-.evm-reports-summary .evm-reports-table th:nth-child(4) { width: 11%; }  /* PV */
-.evm-reports-summary .evm-reports-table th:nth-child(5) { width: 11%; }  /* EV */
-.evm-reports-summary .evm-reports-table th:nth-child(6) { width: 11%; }  /* AC */
-.evm-reports-summary .evm-reports-table th:nth-child(7) { width: 7%; }  /* SV */
-.evm-reports-summary .evm-reports-table th:nth-child(8) { width: 7%; }  /* CV */
+.evm-reports-summary .evm-reports-table th:nth-child(3) { width: 8.5%; }  /* BAC */
+.evm-reports-summary .evm-reports-table th:nth-child(4) { width: 8.5%; }  /* PV */
+.evm-reports-summary .evm-reports-table th:nth-child(5) { width: 8.5%; }  /* EV */
+.evm-reports-summary .evm-reports-table th:nth-child(6) { width: 8.5%; }  /* AC */
+.evm-reports-summary .evm-reports-table th:nth-child(7) { width: 8.5%; }  /* SV */
+.evm-reports-summary .evm-reports-table th:nth-child(8) { width: 8.5%; }  /* CV */
+.evm-reports-summary .evm-reports-table th:nth-child(9) { width: 8.5%; }  /* SPI */
+.evm-reports-summary .evm-reports-table th:nth-child(10) { width: 8.5%; } /* CPI */
 
 
 
