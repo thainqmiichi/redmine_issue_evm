@@ -203,6 +203,8 @@
   label_ac: AC
   label_sv: SV
   label_cv: CV
+  label_spi: SPI
+  label_cpi: CPI
   label_note: Note
   label_export_csv: Export CSV
   label_showing_reports: "Showing %{count} reports"

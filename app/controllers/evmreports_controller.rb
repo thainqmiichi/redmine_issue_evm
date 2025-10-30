@@ -7,6 +7,20 @@ class EvmreportsController < BaseevmController
   #
   def index
     @evm_report = ProjectEvmreport.list(@project.id)
+
+    @evm_report.each do |r|
+      ev = r.evm_ev.to_f
+      pv = r.evm_pv.to_f
+      ac = r.evm_ac.to_f
+
+      if ev.zero? && pv.zero? && ac.zero?
+        r.define_singleton_method(:evm_spi) { nil }
+        r.define_singleton_method(:evm_cpi) { nil }
+      else
+        r.define_singleton_method(:evm_spi) { pv.zero? ? nil : (ev / pv).round(2) }
+        r.define_singleton_method(:evm_cpi) { ac.zero? ? nil : (ev / ac).round(2) }
+      end
+    end
   end
 
   # Create of report
