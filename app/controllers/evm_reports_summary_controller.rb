@@ -4,6 +4,7 @@
 class EvmReportsSummaryController < ApplicationController
   helper EvmReportsSummaryHelper
   helper EvmreportsHelper
+  include EvmreportsHelper
   
   # Before action
   before_action :require_admin
@@ -164,7 +165,14 @@ class EvmReportsSummaryController < ApplicationController
       nil
     end
 
-    {
+    # Debug inputs for investigation: why UI shows "-" (nil)
+    Rails.logger.debug(
+      "[EVM_SUMMARY] diff inputs project=#{current_report.project_id} " \
+      "cur(bac=#{current_report.evm_bac}, pv=#{current_report.evm_pv}, ev=#{current_report.evm_ev}, ac=#{current_report.evm_ac}, sv=#{current_report.evm_sv}, cv=#{current_report.evm_cv}, spi=#{current_spi}, cpi=#{current_cpi}) " \
+      "prev(bac=#{previous_report.evm_bac}, pv=#{previous_report.evm_pv}, ev=#{previous_report.evm_ev}, ac=#{previous_report.evm_ac}, sv=#{previous_report.evm_sv}, cv=#{previous_report.evm_cv}, spi=#{previous_spi}, cpi=#{previous_cpi})"
+    )
+
+    diffs = {
       status_date: status_date_diff,
       bac: evm_report_difference(current_report.evm_bac, previous_report.evm_bac),
       pv: evm_report_difference(current_report.evm_pv, previous_report.evm_pv),
@@ -175,6 +183,9 @@ class EvmReportsSummaryController < ApplicationController
       spi: evm_report_difference(current_spi, previous_spi),
       cpi: evm_report_difference(current_cpi, previous_cpi)
     }
+
+    Rails.logger.debug("[EVM_SUMMARY] diffs result project=#{current_report.project_id} => #{diffs.inspect}")
+    diffs
   rescue => e
     Rails.logger.error "Error calculating differences: #{e.message}"
     {}
