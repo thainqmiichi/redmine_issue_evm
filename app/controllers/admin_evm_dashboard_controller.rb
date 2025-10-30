@@ -6,6 +6,7 @@ require_relative '../../lib/evm_util'
 require_relative '../../lib/issue_data_fetcher'
 
 class AdminEvmDashboardController < ApplicationController
+  helper EvmReportsSummaryHelper
   include EvmUtil
   include IssueDataFetcher
   include EvmPermissionHelper

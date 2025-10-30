@@ -13,20 +13,17 @@ module EvmReportsSummaryHelper
     return '-' if value.nil? || all_previous_values_zero
     number_with_precision(value, precision: 2)
   end
-  
-  # Get CSS class for EVM value
-  def evm_value_class(value)
-    return 'neutral' if value.nil?
-    
-    if value > 0
-      'positive'
-    elsif value < 0
-      'negative'
-    else
-      'neutral'
+
+  def evm_bg_class(value)
+    return nil if value.nil?
+    v = value.to_f
+    if v < 0.8 || v > 1.2
+      'bg-color-red'
+    elsif (v >= 0.8 && v < 0.9) || (v > 1.1 && v <= 1.2)
+      'bg-color-orange'
     end
   end
-  
+
   # Get project status label
   def project_status_label(status)
     case status

@@ -32,9 +32,9 @@
       <td id="AC_HOURS"><%=project_evm.today_ac%></td>
       <td id="SV_HOURS"><%=project_evm.today_sv%></td>
       <td id="CV_HOURS"><%=project_evm.today_cv%></td>
-      <%=performance_indicator(project_evm.today_spi, cfg_param[:limit_spi])%>
-      <%=performance_indicator(project_evm.today_cpi, cfg_param[:limit_cpi])%>
-      <%=performance_indicator(project_evm.today_cr, cfg_param[:limit_cr])%>
+      <td class="evm-value <%= evm_bg_class(project_evm.today_spi) %>"><%= project_evm.today_spi %></td>
+      <td class="evm-value <%= evm_bg_class(project_evm.today_cpi) %>"><%= project_evm.today_cpi %></td>
+      <td class="evm-value <%= evm_bg_class(project_evm.today_cr) %>"><%= project_evm.today_cr %></td>
       <%=forecast_value_finished(project_evm.finished_date, project_evm.eac)%>
       <%=forecast_value_finished(project_evm.finished_date, project_evm.etc)%>
       <%=forecast_value_finished(project_evm.finished_date, project_evm.vac)%>
@@ -48,9 +48,9 @@
       <td><%=project_evm.today_ac(cfg_param[:working_hours])%></td>
       <td><%=project_evm.today_sv(cfg_param[:working_hours])%></td>
       <td><%=project_evm.today_cv(cfg_param[:working_hours])%></td>
-      <%=performance_indicator(project_evm.today_spi(cfg_param[:working_hours]), cfg_param[:limit_spi])%>
-      <%=performance_indicator(project_evm.today_cpi(cfg_param[:working_hours]), cfg_param[:limit_cpi])%>
-      <%=performance_indicator(project_evm.today_cr(cfg_param[:working_hours]), cfg_param[:limit_cr])%>
+      <td class="evm-value <%= evm_bg_class(project_evm.today_spi(cfg_param[:working_hours])) %>"><%= project_evm.today_spi(cfg_param[:working_hours]) %></td>
+      <td class="evm-value <%= evm_bg_class(project_evm.today_cpi(cfg_param[:working_hours])) %>"><%= project_evm.today_cpi(cfg_param[:working_hours]) %></td>
+      <td class="evm-value <%= evm_bg_class(project_evm.today_cr(cfg_param[:working_hours])) %>"><%= project_evm.today_cr(cfg_param[:working_hours]) %></td>
       <%=forecast_value_finished(project_evm.finished_date, project_evm.eac(cfg_param[:working_hours]))%>
       <%=forecast_value_finished(project_evm.finished_date, project_evm.etc(cfg_param[:working_hours]))%>
       <%=forecast_value_finished(project_evm.finished_date, project_evm.vac(cfg_param[:working_hours]))%>

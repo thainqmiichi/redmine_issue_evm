@@ -52,11 +52,11 @@
             <td id="PV_HOURS"><%= number_with_precision(data[:pv], precision: 1) %></td>
             <td id="EV_HOURS"><%= number_with_precision(data[:ev], precision: 1) %></td>
             <td id="AC_HOURS"><%= number_with_precision(data[:ac], precision: 1) %></td>
-            <td id="SV_HOURS" class="<%= data[:sv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:sv], precision: 1) %></td>
-            <td id="CV_HOURS" class="<%= data[:cv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:cv], precision: 1) %></td>
-            <td class="<%= data[:spi] < 1.0 ? 'indicator-red' : (data[:spi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:spi], precision: 2) %></td>
-            <td class="<%= data[:cpi] < 1.0 ? 'indicator-red' : (data[:cpi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cpi], precision: 2) %></td>
-            <td class="<%= data[:cr] < 1.0 ? 'indicator-red' : (data[:cr] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cr], precision: 2) %></td>
+            <td id="SV_HOURS"><%= number_with_precision(data[:sv], precision: 1) %></td>
+            <td id="CV_HOURS"><%= number_with_precision(data[:cv], precision: 1) %></td>
+            <td class="evm-value <%= evm_bg_class(data[:spi]) %>"><%= number_with_precision(data[:spi], precision: 2) %></td>
+            <td class="evm-value <%= evm_bg_class(data[:cpi]) %>"><%= number_with_precision(data[:cpi], precision: 2) %></td>
+            <td class="evm-value <%= evm_bg_class(data[:cr]) %>"><%= number_with_precision(data[:cr], precision: 2) %></td>
             <td><%= data[:finished_date].nil? ? (data[:eac] ? number_with_precision(data[:eac], precision: 1) : '-') : '-' %></td>
             <td><%= data[:finished_date].nil? ? (data[:etc] ? number_with_precision(data[:etc], precision: 1) : '-') : '-' %></td>
             <td><%= data[:finished_date].nil? ? (data[:vac] ? number_with_precision(data[:vac], precision: 1) : '-') : '-' %></td>
@@ -68,11 +68,11 @@
             <td><%= number_with_precision(data[:pv] / data[:working_hours], precision: 1) %></td>
             <td><%= number_with_precision(data[:ev] / data[:working_hours], precision: 1) %></td>
             <td><%= number_with_precision(data[:ac] / data[:working_hours], precision: 1) %></td>
-            <td class="<%= data[:sv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:sv] / data[:working_hours], precision: 1) %></td>
-            <td class="<%= data[:cv] < 0 ? 'indicator-red' : '' %>"><%= number_with_precision(data[:cv] / data[:working_hours], precision: 1) %></td>
-            <td class="<%= data[:spi] < 1.0 ? 'indicator-red' : (data[:spi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:spi], precision: 2) %></td>
-            <td class="<%= data[:cpi] < 1.0 ? 'indicator-red' : (data[:cpi] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cpi], precision: 2) %></td>
-            <td class="<%= data[:cr] < 1.0 ? 'indicator-red' : (data[:cr] < 1.1 ? 'indicator-orange' : '') %>"><%= number_with_precision(data[:cr], precision: 2) %></td>
+            <td><%= number_with_precision(data[:sv] / data[:working_hours], precision: 1) %></td>
+            <td><%= number_with_precision(data[:cv] / data[:working_hours], precision: 1) %></td>
+            <td class="evm-value <%= evm_bg_class(data[:spi]) %>"><%= number_with_precision(data[:spi], precision: 2) %></td>
+            <td class="evm-value <%= evm_bg_class(data[:cpi]) %>"><%= number_with_precision(data[:cpi], precision: 2) %></td>
+            <td class="evm-value <%= evm_bg_class(data[:cr]) %>"><%= number_with_precision(data[:cr], precision: 2) %></td>
             <td><%= data[:finished_date].nil? ? (data[:eac] ? number_with_precision(data[:eac] / data[:working_hours], precision: 1) : '-') : '-' %></td>
             <td><%= data[:finished_date].nil? ? (data[:etc] ? number_with_precision(data[:etc] / data[:working_hours], precision: 1) : '-') : '-' %></td>
             <td><%= data[:finished_date].nil? ? (data[:vac] ? number_with_precision(data[:vac] / data[:working_hours], precision: 1) : '-') : '-' %></td>

@@ -92,6 +92,14 @@ td.difference-red {
 }
 
 /*** EVM Reports Summary ***/
+.bg-color-red {
+  background-color: #ff0000 !important;
+}
+
+.bg-color-orange {
+  background-color: #ff8c00 !important;
+}
+
 .evm-reports-summary .evm-explanation {
   margin-bottom: 20px;
   padding: 10px;
