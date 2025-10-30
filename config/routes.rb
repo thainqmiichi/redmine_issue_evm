@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   
   # EVM Reports Summary routes
   get 'evm_reports_summary', to: 'evm_reports_summary#index', as: :evm_reports_summary
+
+  get  'admin/evm_permissions', to: 'admin_evm_permissions#index', as: :admin_evm_permissions
+  
+  put  'admin/evm_permissions', to: 'admin_evm_permissions#update'
 end

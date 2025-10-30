@@ -4,19 +4,27 @@
 class EvmReportsSummaryController < ApplicationController
   helper EvmReportsSummaryHelper
   helper EvmreportsHelper
+  include EvmPermissionHelper
   include EvmreportsHelper
   
   # Before action
-  before_action :require_admin
+  before_action :require_evm_permission
   before_action :set_filters
+
+  def require_evm_permission
+    render_403 unless can_view_evm?(User.current)
+  end
   
   # View of EVM reports summary page
   def index
-    # Get projects by status filter
-    scope = Project.visible.order(:name)
+    # Admin sees all projects by original logic; non-admins are filtered by roles.can_view_evm
+    scope = Project.visible
     scope = scope.where(status: @project_status) if @project_status.present?
-    
-    @projects = scope
+    if User.current.admin?
+      @projects = scope.order(:name)
+    else
+      @projects = evm_viewable_projects(scope)
+    end
     @reports_data = []
     
     @projects.each do |project|
