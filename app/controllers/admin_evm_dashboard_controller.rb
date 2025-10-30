@@ -8,10 +8,15 @@ require_relative '../../lib/issue_data_fetcher'
 class AdminEvmDashboardController < ApplicationController
   include EvmUtil
   include IssueDataFetcher
+  include EvmPermissionHelper
   
   # Before action
-  before_action :require_admin
+  before_action :require_evm_permission
   before_action :set_basis_date
+
+  def require_evm_permission
+    render_403 unless can_view_evm?(User.current)
+  end
   
   # View of admin dashboard page
   def index

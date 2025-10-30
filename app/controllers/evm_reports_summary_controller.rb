@@ -4,10 +4,15 @@
 class EvmReportsSummaryController < ApplicationController
   helper EvmReportsSummaryHelper
   helper EvmreportsHelper
+  include EvmPermissionHelper
   
   # Before action
-  before_action :require_admin
+  before_action :require_evm_permission
   before_action :set_filters
+
+  def require_evm_permission
+    render_403 unless can_view_evm?(User.current)
+  end
   
   # View of EVM reports summary page
   def index

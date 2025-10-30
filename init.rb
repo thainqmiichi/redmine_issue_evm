@@ -1,5 +1,7 @@
 require "redmine"
 require "holidays/core_extensions/date"
+require_relative "lib/evm_permission_helper"
+include EvmPermissionHelper
 
 # Extention for ate class
 class Date
@@ -49,19 +51,29 @@ Redmine::Plugin.register :redmine_issue_evm do
 
   # top menu (admin dashboard) - trên top menu
   menu :top_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
-       caption: :label_evm_admin_dashboard, if: Proc.new { User.current.admin? }
+       caption: :label_evm_admin_dashboard, if: Proc.new { can_view_evm? }
 
   # application menu (admin dashboard) - sau News
   menu :application_menu, :admin_evm_dashboard, { controller: :admin_evm_dashboard, action: :index },
-       caption: :label_evm_admin_dashboard, if: Proc.new { User.current.admin? }
+       caption: :label_evm_admin_dashboard, if: Proc.new { can_view_evm? }
 
   # EVM Reports Summary menu
   menu :top_menu, :evm_reports_summary, { controller: :evm_reports_summary, action: :index },
-       caption: :label_evm_reports_summary, if: Proc.new { User.current.admin? }
+       caption: :label_evm_reports_summary, if: Proc.new { can_view_evm? }
 
   menu :application_menu, :evm_reports_summary, { controller: :evm_reports_summary, action: :index },
-       caption: :label_evm_reports_summary, if: Proc.new { User.current.admin? }
+       caption: :label_evm_reports_summary, if: Proc.new { can_view_evm? }
 
   # load holidays
   Holidays.load_all
+end
+
+Redmine::MenuManager.map :admin_menu do |menu|
+  menu.push(
+    :evm_admin_dashboard_sidebar,
+    { controller: 'admin_evm_permissions', action: 'index' },
+    caption: 'EVM permissions',
+    icon: 'roles',
+    html: { class: 'icon' }
+  )
 end
