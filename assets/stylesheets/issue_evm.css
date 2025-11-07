@@ -519,7 +519,9 @@ dt.evmreports-edit {
 #project_evmreport_evm_ev,
 #project_evmreport_evm_ac,
 #project_evmreport_evm_sv,
-#project_evmreport_evm_cv {
+#project_evmreport_evm_cv,
+#project_evmreport_evm_spi,
+#project_evmreport_evm_cpi {
   text-align: right;
 }
 
