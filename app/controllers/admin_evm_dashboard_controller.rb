@@ -23,15 +23,15 @@ class AdminEvmDashboardController < ApplicationController
   def index
     # Admin sees all projects by original logic; non-admins are filtered by roles.can_view_evm
     if User.current.admin?
-      @projects = Project.visible.active.order(:name)
+      @projects = Project.visible.active.includes(:evmsetting, :evmbaselines).order(:name)
     else
-      @projects = evm_viewable_projects(Project.visible.active)
+      @projects = evm_viewable_projects(Project.visible.active.includes(:evmsetting, :evmbaselines))
     end
     @projects_evm_data = []
     
     @projects.each do |project|
       begin
-        evm_data = calculate_project_evm(project)
+        evm_data = calculate_project_evm_cached(project)
         @projects_evm_data << evm_data if evm_data
       rescue => e
         Rails.logger.error "Error calculating EVM for project #{project.name}: #{e.message}"
@@ -59,11 +59,11 @@ class AdminEvmDashboardController < ApplicationController
   
   def calculate_project_evm(project)
     # Get EVM setting for project
-    evm_setting = Evmsetting.find_by(project_id: project.id)
+    evm_setting = project.evmsetting
     return nil unless evm_setting
     
     # Get baseline
-    baseline = Evmbaseline.where(project_id: project.id).order(:created_on).last
+    baseline = (project.evmbaselines || []).max_by(&:created_on)
     
     # Get issues
     issues = evm_issues(project)
@@ -113,5 +113,21 @@ class AdminEvmDashboardController < ApplicationController
     nil
   end
   
+  def calculate_project_evm_cached(project)
+    cache_key = "admin_evm_dashboard_#{project.id}_#{@basis_date.strftime('%Y-%m-%d')}"
+
+    cached = Rails.cache.read(cache_key)
+    return cached if cached.present?
+
+    begin
+      result = calculate_project_evm(project)
+      Rails.cache.write(cache_key, result, expires_in: 24.hours) if result.present?
+      result
+    rescue => e
+      Rails.cache.delete(cache_key)
+      Rails.logger.error "Error in calculate_project_evm_cached for project #{project.name}: #{e.message}"
+      nil
+    end
+  end
 
 end

@@ -15,15 +15,15 @@ class ProjectEvmreport < ActiveRecord::Base
             presence: true
 
   # for activity page.
-  acts_as_activity_provider scope: joins(:project),
-                            permission: :view_project_evmreports,
-                            type: "project_evmreport",
-                            author_key: :author_id
+  # acts_as_activity_provider scope: joins(:project),
+  #                           permission: :view_project_evmreports,
+  #                           type: "project_evmreport",
+  #                           author_key: :author_id
 
   # for search.
-  acts_as_searchable columns: ["#{table_name}.report_text"],
-                     preload: :project,
-                     date_column: :updated_on
+  # acts_as_searchable columns: ["#{table_name}.report_text"],
+  #                    preload: :project,
+  #                    date_column: :updated_on
   # scope
   scope :list,
         ->(project_id) { where(project_id: project_id).order(status_date: :DESC).order(created_on: :DESC) }
