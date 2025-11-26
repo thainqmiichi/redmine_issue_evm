@@ -77,3 +77,13 @@ Redmine::MenuManager.map :admin_menu do |menu|
     html: { class: 'icon' }
   )
 end
+
+Rails.application.config.after_initialize do
+  require_dependency File.expand_path('lib/patches/project_patch', __dir__)
+  require_dependency File.expand_path('lib/patches/issue_patch', __dir__)
+  require_dependency File.expand_path('lib/patches/time_entry_patch', __dir__)
+
+  Project.include RedmineIssueEvm::ProjectPatch unless Project.included_modules.include?(RedmineIssueEvm::ProjectPatch)
+  Issue.include RedmineIssueEvm::IssuePatch unless Issue.included_modules.include?(RedmineIssueEvm::IssuePatch)
+  TimeEntry.include RedmineIssueEvm::TimeEntryPatch unless TimeEntry.included_modules.include?(RedmineIssueEvm::TimeEntryPatch)
+end

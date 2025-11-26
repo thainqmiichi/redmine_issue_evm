@@ -2,6 +2,14 @@
 class Evmsetting < ActiveRecord::Base
   # Relations
   belongs_to :project
+  after_commit :clear_evm_cache
+
+  private
+
+  def clear_evm_cache
+    return unless project_id.present?
+    Rails.cache.delete_matched("admin_evm_dashboard_#{project_id}_*")
+  end
 
   # Validate
   validates :etc_method,
