@@ -1,0 +1,21 @@
+<%= title l(:label_issue_templates) %>
+<div class="box">
+  <h3><%= l(:label_issue_template_update) %></h3>
+  <% if @template.errors.any? %>
+    <div id="errorExplanation" class="errorExplanation">
+      <h2><%= l(:label_error_prohibited) %></h2>
+      <ul>
+        <% @template.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_for @template, url: admin_issue_template_path(@template), method: :patch do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <p>
+      <%= submit_tag l(:button_save), class: 'button-positive' %>
+      <%= link_to l(:button_cancel), admin_issue_templates_path, class: 'button' %>
+    </p>
+  <% end %>
+</div>

@@ -77,3 +77,13 @@ Redmine::MenuManager.map :admin_menu do |menu|
     html: { class: 'icon' }
   )
 end
+
+Redmine::MenuManager.map :admin_menu do |menu|
+  menu.push(
+    :issue_templates_dashboard_sidebar,
+    { controller: 'admin_issue_templates', action: 'index' },
+    caption: 'Issue templates',
+    icon: 'issue',
+    html: { class: 'icon' }
+  )
+end

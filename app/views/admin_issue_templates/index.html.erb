@@ -1,0 +1,54 @@
+<%= title l(:label_issue_templates) %>
+<div class="box">
+  <h3><%= l(:label_issue_template_create) %></h3>
+  <% if @template.errors.any? %>
+    <div id="errorExplanation" class="errorExplanation">
+      <h2><%= l(:label_error_prohibited) %></h2>
+      <ul>
+        <% @template.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_for @template, url: admin_issue_templates_path do |f| %>
+    <%= render partial: 'form', locals: { f: f } %>
+    <p>
+      <%= submit_tag l(:button_create), class: 'button-positive' %>
+    </p>
+  <% end %>
+</div>
+<div class="box">
+  <h3><%= l(:label_issue_template_list) %></h3>
+  <table class="list issues">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th><%= l(:field_name) %></th>
+        <th><%= l(:field_tracker) %></th>
+        <th><%= l(:field_subject) %></th>
+        <th><%= l(:field_description) %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% trackers = Tracker.all.index_by(&:id) %>
+      <% @templates.each do |tpl| %>
+        <tr class="<%= cycle('odd', 'even') %>">
+          <td><%= tpl.id %></td>
+          <td><%= tpl.name %></td>
+          <td><%= trackers[tpl.tracker_id]&.name %></td>
+          <td><%= tpl.subject %></td>
+          <td><%= textilizable(tpl.description.to_s) %></td>
+          <td class="buttons">
+            <%= link_to l(:button_edit), edit_admin_issue_template_path(tpl), class: 'icon icon-edit' %>
+            <%= link_to l(:button_delete), admin_issue_template_path(tpl),
+                method: :delete,
+                data: { confirm: l(:text_are_you_sure) },
+                class: 'icon icon-del' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

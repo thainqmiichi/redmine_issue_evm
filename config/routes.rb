@@ -14,4 +14,9 @@ Rails.application.routes.draw do
   get  'admin/evm_permissions', to: 'admin_evm_permissions#index', as: :admin_evm_permissions
   
   put  'admin/evm_permissions', to: 'admin_evm_permissions#update'
+
+  resources :admin_issue_templates,
+          path: 'admin/issue_templates',
+          as: :admin_issue_templates,
+          only: [:index, :create, :edit, :update, :destroy]
 end
