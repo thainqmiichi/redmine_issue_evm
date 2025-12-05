@@ -1,0 +1,19 @@
+<p>
+  <%= f.label :name, l(:field_name) %><br>
+  <%= f.text_field :name, size: 60 %>
+</p>
+<p>
+  <%= f.label :tracker_id, l(:field_tracker) %><br>
+  <%= f.select :tracker_id,
+      Tracker.order(:position).map { |t| [t.name, t.id] },
+      include_blank: true %>
+</p>
+<p>
+  <%= f.label :subject, l(:field_subject) %><br>
+  <%= f.text_field :subject, size: 80 %>
+</p>
+<p>
+  <%= f.label :description, l(:field_description) %><br>
+  <%= f.text_area :description, rows: 10, cols: 80, class: 'wiki-edit' %>
+  <%= wikitoolbar_for "#{f.object_name}_description" %>
+</p>

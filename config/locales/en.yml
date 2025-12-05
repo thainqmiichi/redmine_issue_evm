@@ -233,3 +233,11 @@
   field_status: Status
   field_project: Project
   label_view_full_report: View Full Report
+
+  # Issue Template
+  label_issue_templates: Issue Templates
+  label_issue_template_list: Template list
+  label_issue_template_create: Create template
+  label_issue_template_update: Update template
+  field_id: ID
+  
